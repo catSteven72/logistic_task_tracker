@@ -59,7 +59,7 @@ public class StatusController {
     }
 
     @PostMapping("/updateSubtaskCompletedStatus")
-    public ResponseEntity<?> updateSubtaskCompletedStatus(@RequestParam("id") Long id, @RequestParam("subtaskIsCompleted") boolean isCompleted) {
+    public ResponseEntity<?> updateSubtaskCompletedStatus(@RequestParam("id") Long id, @RequestParam("isCompleted") boolean isCompleted) {
         try {
             boolean updateStatus = statusService.updateSubtaskCompletedStatus(id, isCompleted);
             if (updateStatus) {
