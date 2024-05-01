@@ -1,0 +1,97 @@
+.booking-container {
+            margin-bottom: 20px;
+        }
+
+        .booking {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .places {
+            display: grid;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .place-column {
+            background-color: white;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .top-half {
+            display: flex;
+            flex: 1 1 20%;
+        }
+
+        .left-side, .right-side {
+            background-color: white;
+            flex: 1;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .left-side.active,
+        .right-side.active {
+            background-color: green;
+        }
+
+        .bottom-half {
+            flex: 4 1 80%;
+            width: 100%;
+        }
+
+        .subtask-list {
+            width: 100%;
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .subtask-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .subtask-list li:last-child {
+            border-bottom: none;
+        }
+
+        .subtask-item {
+            padding: 5px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .subtask-item:last-child {
+            border-bottom: none;
+        }
+
+        .subtask-details {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            padding: 5px;
+            margin: 2px 0;
+        }
+
+        .subtask-details.active {
+            background-color: green;
+        }

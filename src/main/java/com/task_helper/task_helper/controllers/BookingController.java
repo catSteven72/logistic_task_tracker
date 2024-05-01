@@ -35,6 +35,10 @@ public class BookingController {
     @GetMapping("/")
     public String showBookings(Model model) {
         List<Booking> bookings = bookingService.getBookingsByStatus(false);
+        bookings.forEach(booking -> booking.setPlaces(booking.getPlaces()
+                .stream()
+                .sorted(Comparator.comparingInt(Place::getIndex))
+                .collect(Collectors.toList())));
         model.addAttribute("bookings", bookings);
         return "task-page";
     }

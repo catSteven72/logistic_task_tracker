@@ -3,55 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Booking</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        let placeIndex = 0;
-        const addPlaceBtn = document.getElementById('addplace');
-
-        function addSubtask(placeDiv, placeIdx) {
-            const subtaskContainer = placeDiv.querySelector('.subtasksContainer');
-            const subtasks = subtaskContainer.children.length-1;
-            const inputHtml = `
-                <div class="subtask">
-                    Subtask Name: <input type="text" name="places[${placeIdx}].subtasks[${subtasks}].name" required/>
-                    Subtask Description: <input type="text" name="places[${placeIdx}].subtasks[${subtasks}].description"/>
-                    <button type="button" onclick="this.parentNode.remove()">Remove Subtask</button>
-                </div>
-            `;
-            subtaskContainer.insertAdjacentHTML('beforeend', inputHtml);
-        }
-
-        addPlaceBtn.addEventListener('click', function() {
-            const thisPlaceIndex = placeIndex;
-            const placesContainer = document.getElementById('placesContainer');
-            const placeDiv = document.createElement('div');
-            placeDiv.className = 'place';
-            placeDiv.innerHTML = `
-                <div>
-                    City: <input type="text" name="places[${placeIndex}].city" required/>
-                    Country: <input type="text" name="places[${placeIndex}].country" required/>
-                    Forwarder: <input type="text" name="places[${placeIndex}].forwarder" required/>
-                    Index: <input type="number" name="places[${placeIndex}].index" required/>
-                    <button type="button" onclick="this.parentNode.remove()">Remove place</button>
-                </div>
-                <div class="subtasksContainer">
-                    <button type="button">Add Subtask</button>
-                </div>
-            `;
-            placesContainer.appendChild(placeDiv);
-            placeDiv.querySelector('.subtasksContainer button').addEventListener('click', function() {
-                addSubtask(placeDiv, thisPlaceIndex);
-            });
-            placeIndex++;
-        });
-    });
-    </script>
+    <link rel="stylesheet" type="text/css" href="/css/createTaskStyle.css">
+    <script src="/js/createTaskScript.js"></script>
 </head>
 <body>
 <h2>Create New Booking</h2>
-<form th:action="@{/create}" th:object="${booking}" method="post">
+<form th:action="@{/create}" th:object="${booking}" method="post" class="form-container">
     <div>
-        <label for="bookingName">Booking number:</label>
+        <label for="bookingName">Booking Number:</label>
         <input type="text" id="bookingName" th:field="*{name}" required/>
     </div>
     <div>
@@ -59,9 +18,10 @@
         <textarea id="bookingDescription" th:field="*{description}" required></textarea>
     </div>
     <div id="placesContainer">
-        <button type="button" id="addplace">Add place</button>
+        <button type="button" id="addplace">Add Place</button>
     </div>
     <button type="submit">Create Booking</button>
 </form>
 </body>
+
 </html>

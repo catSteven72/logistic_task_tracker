@@ -5,81 +5,8 @@
     <title>Bookings</title>
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
     <meta th:name="${_csrf.headerName}" th:content="${_csrf.token}"/>
-    <style>
-        .booking-container {
-            margin-bottom: 20px;
-        }
-
-        .booking {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #f2f2f2;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .places {
-            display: grid;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-        }
-
-        .place-column {
-            background-color: white;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .place-column.active {
-            background-color: green;
-        }
-
-        .subtask-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-
-        .subtask-list li {
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .subtask-list li:last-child {
-            border-bottom: none;
-        }
-
-        .subtask-item {
-            padding: 5px 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .subtask-item:last-child {
-            border-bottom: none;
-        }
-
-        .subtask-details {
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 5px;
-            padding: 5px;
-            margin: 2px 0;
-        }
-
-        .subtask-details.active {
-            background-color: green;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/taskPageStyle.css">
+    <script src="/js/taskPageScript.js"></script>
 </head>
 <body>
 <h2>Bookings</h2>
@@ -89,98 +16,38 @@
     <div class="booking" th:data-id="${booking.id}" data-entity="Booking" data-status-field="Completed" onclick="togglePlaces(this)">
         <span th:text="${booking.name}"></span>
         <div style="display:none;" class="places grid-container">
-            <div th:each="place : ${booking.places}" class="place-column" th:data-id="${place.id}" data-entity="Place" data-status-field="Departed" onclick="toggleStatus(this, event)">
-                <p th:text="|${place.country}, ${place.city}|"></p>
-                <ul class="subtask-list">
-                    <li th:each="subtask : ${place.subtasks}" class="subtask-item">
-                        <div class="subtask-details" th:data-id="${subtask.id}" data-entity="Subtask" data-status-field="Completed" onclick="toggleStatus(this, event)">
-                            <p th:text="${subtask.name}"></p>
-                            <p th:text="${subtask.description}"></p>
-                        </div>
-                    </li>
-                </ul>
+            <div th:each="place : ${booking.places}" class="place-column">
+                <p th:text="|${place.city}, ${place.country}|"></p>
+                <div class="top-half">
+                    <div th:class="${place.isArrived} ? 'left-side active' : 'left-side'"
+                         th:data-id="${place.id}" data-entity="Place"
+                         data-status-field="Arrived"
+                         onclick="toggleStatus(this, event)">
+                        <p>Arrived</p>
+                    </div>
+                    <div th:class="${place.isDeparted} ? 'right-side active' : 'right-side'"
+                         th:data-id="${place.id}" data-entity="Place"
+                         data-status-field="Departed"
+                         onclick="toggleStatus(this, event)">
+                        <p>Departed</p>
+                    </div>
+                </div>
+                <div class="bottom-half">
+                    <ul class="subtask-list">
+                        <li th:each="subtask : ${place.subtasks}" class="subtask-item">
+                            <div th:class="${subtask.completed} ? 'subtask-details active' : 'subtask-details'"
+                                 th:data-id="${subtask.id}"
+                                 data-entity="Subtask" data-status-field="Completed"
+                                 onclick="toggleStatus(this, event)">
+                                <p th:text="${subtask.name}"></p>
+                                <p th:text="${subtask.description}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<script>
-    let csrfToken = null;
-
-    async function initializeCsrfToken() {
-        try {
-            const response = await fetch('/csrf-token', { method: 'GET' });
-            const result = await response.json();
-            return result.token;
-        } catch (error) {
-            console.error('Error fetching CSRF Token:', error);
-            return null;
-        }
-    }
-
-    async function handleToken() {
-        csrfToken = await initializeCsrfToken();
-        if (csrfToken) {
-            console.log('Retrieved CSRF Token');
-        } else {
-            console.log('No token could be retrieved.');
-        }
-    }
-
-
-    handleToken();
-
-    function toggleStatus(element, event) {
-
-        event.stopPropagation()
-
-        const itemId = element.getAttribute('data-id');
-        const entityType = element.getAttribute('data-entity');
-        const statusField = element.getAttribute('data-status-field');
-        const currentStatus = element.classList.contains('active');
-        const newStatus = !currentStatus;
-
-        const endpointUrl = `/update${entityType}${statusField}Status`;
-
-        fetch (endpointUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: `id=${itemId}&is${statusField}=${newStatus}`
-        })
-        .then(response => response.text().then(text => ({ text, ok: response.ok})))
-        .then(({ text, ok }) => {
-            if (ok) {
-                element.classList.toggle('active', newStatus);
-                console.log('Status update response:', text);
-            } else {
-                throw new Error(text);
-            }
-        })
-        .catch(error => {
-            console.error('Failed to update status:', error);
-        });
-    }
-
-    function togglePlaces(element) {
-        var places = element.querySelector('.places');
-        if (places.style.display === 'grid') {
-            places.style.display = 'none';
-        } else {
-            places.style.display = 'grid';
-        }
-    }
-
-    function toggleColor(event, element) {
-        event.stopPropagation();
-        element.classList.toggle('active');
-    }
-
-
-
-</script>
 </body>
 </html>
