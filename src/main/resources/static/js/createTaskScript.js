@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="subtask">
                     Subtask Name: <input type="text" name="places[${placeIdx}].subtasks[${subtasks}].name" required/>
                     Subtask Description: <input type="text" name="places[${placeIdx}].subtasks[${subtasks}].description"/>
-                    <button type="button" onclick="this.parentNode.remove()">Remove Subtask</button>
+                    <button type="button" class="remove-button" onclick="this.parentNode.remove()">Remove Subtask</button>
                 </div>
             `;
             subtaskContainer.insertAdjacentHTML('beforeend', inputHtml);
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     Country: <input type="text" name="places[${placeIndex}].country" required/>
                     Forwarder: <input type="text" name="places[${placeIndex}].forwarder" required/>
                     Index: <input type="number" name="places[${placeIndex}].index" required/>
-                    <button type="button" onclick="this.parentNode.remove()">Remove place</button>
+                    <button type="button" class="remove-button" onclick="this.parentNode.remove()">Remove place</button>
                 </div>
                 <div class="subtasksContainer">
                     <button type="button">Add Subtask</button>

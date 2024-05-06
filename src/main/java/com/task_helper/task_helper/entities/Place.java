@@ -112,6 +112,10 @@ public class Place {
         subtask.setPlace(this);
     }
 
+    public void setSubtasks(List<Subtask> subtasks) {
+        this.subtasks = subtasks;
+    }
+
     public String getForwarder() {
         return forwarder;
     }

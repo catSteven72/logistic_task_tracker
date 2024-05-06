@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Booking</title>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+    <meta th:name="${_csrf.headerName}" th:content="${_csrf.token}"/>
+    <link rel="stylesheet" type="text/css" href="/css/basicTaskStyle.css">
+    <script src="/js/updateTaskScript.js"></script>
+</head>
+<body>
+<div th:insert="~{header :: common-header}"></div>
+<h2>Edit Booking</h2>
+<form id="bookingForm" action="javascript:void(0);" class="form-container">
+    <input type="hidden" th:name="bookingId" th:value="${booking.id}"/>
+    <div>
+        <label for="bookingName">Booking Name:</label>
+        <input type="text" id="bookingName" th:name="bookingName" th:value="${booking.name}" required/>
+    </div>
+    <div>
+        <label for="bookingName">Booking Name:</label>
+        <input type="text" id="bookingDescription" th:name="bookingDescription" th:value="${booking.description}" required/>
+    </div>
+
+    <div id="placesContainer">
+        <h3>Places:</h3>
+        <div th:each="place, placeIndex : ${booking.places}" class="place">
+            <input type="hidden" th:name="places[__${placeIndex.index}__].id" th:value="${place.id}"/>
+            <label>City:</label>
+            <input type="text" th:name="places[__${placeIndex.index}__].city" th:value="${place.city}"/>
+            <label>Country:</label>
+            <input type="text" th:name="places[__${placeIndex.index}__].country" th:value="${place.country}"/>
+            <label>Forwarder:</label>
+            <input type="text" th:name="places[__${placeIndex.index}__].forwarder" th:value="${place.forwarder}"/>
+            <label>Index:</label>
+            <input type="number" th:name="places[__${placeIndex.index}__].index" th:value="${place.index}"/>
+
+            <h4>Subtasks:</h4>
+            <div class="subtasks-container">
+                <div th:each="subtask, subtaskIndex : ${place.subtasks}" class="subtask">
+                    <input type="hidden" th:name="places[__${placeIndex.index}__].subtasks[__${subtaskIndex.index}__].id" th:value="${subtask.id}"/>
+                    <label>Name:</label>
+                    <input type="text" th:name="places[__${placeIndex.index}__].subtasks[__${subtaskIndex.index}__].name" th:value="${subtask.name}"/>
+                    <label>Description:</label>
+                    <textarea th:name="places[__${placeIndex.index}__].subtasks[__${subtaskIndex.index}__].description" th:value="${subtask.description}"></textarea>
+                    <button type="button" class="remove-button" onclick="removeSubtask(this)">Remove Subtask</button>
+                </div>
+            </div>
+            <button type="button" th:data-index="${placeIndex.index}" onclick="addSubtask(this)">Add Subtask</button>
+            <button type="button" class="remove-button" onclick="removePlace(this)">Remove Place</button>
+        </div>
+        <button type="button" onclick="addPlace()">Add Place</button>
+    </div>
+    <hr>
+    <div>
+        <button type="button" onclick="updateBooking()">Update Booking</button>
+        <button type="button" onclick="markBookingCompleted()">Mark as Completed</button>
+    </div>
+</form>
+
+<hr>
+
+
+
+</body>
+</html>

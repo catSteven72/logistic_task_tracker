@@ -9,12 +9,19 @@
     <script src="/js/taskPageScript.js"></script>
 </head>
 <body>
+<div th:insert="~{header :: common-header}"></div>
 <h2>Bookings</h2>
-<a th:href="@{/create}">Add booking</a>
-<button type="submit">Mark Booking as Completed</button>
+<a class="standard-button" th:href="@{/create}">Add booking</a>
 <div th:each="booking : ${bookings}" class="booking-container">
     <div class="booking" th:data-id="${booking.id}" data-entity="Booking" data-status-field="Completed" onclick="togglePlaces(this)">
-        <span th:text="${booking.name}"></span>
+        <div class="booking-content">
+            <div class="booking-info">
+                <span th:text="${booking.name}"></span>
+                <br>
+                <span th:text="${booking.description}"></span>
+            </div>
+            <a class="update-link standard-button" th:href="@{'/update?bookingId=' + ${booking.id}}">Update</a>
+        </div>
         <div style="display:none;" class="places grid-container">
             <div th:each="place : ${booking.places}" class="place-column">
                 <p th:text="|${place.city}, ${place.country}|"></p>
@@ -38,9 +45,12 @@
                             <div th:class="${subtask.completed} ? 'subtask-details active' : 'subtask-details'"
                                  th:data-id="${subtask.id}"
                                  data-entity="Subtask" data-status-field="Completed"
-                                 onclick="toggleStatus(this, event)">
+                                 onclick="toggleStatus(this, event);">
                                 <p th:text="${subtask.name}"></p>
-                                <p th:text="${subtask.description}"></p>
+                                <button class="toggle-description" onclick="toggleDescription(event); event.stopPropagation();">Details</button>
+                                <div class="description" style="display: none;">
+                                    <p th:text="${subtask.description}"></p>
+                                </div>
                             </div>
                         </li>
                     </ul>

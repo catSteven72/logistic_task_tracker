@@ -3,10 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Booking</title>
-    <link rel="stylesheet" type="text/css" href="/css/createTaskStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/basicTaskStyle.css"/>
     <script src="/js/createTaskScript.js"></script>
 </head>
 <body>
+<div th:insert="~{header :: common-header}"></div>
 <h2>Create New Booking</h2>
 <form th:action="@{/create}" th:object="${booking}" method="post" class="form-container">
     <div>

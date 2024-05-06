@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link href="/css/basicTaskStyle.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{header :: common-header}" class="common-header"></div>
+<h1>Register</h1>
+<div class="form-container">
+    <form th:action="@{/user/register}" th:object="${user}" method="post">
+        <div class="place">
+            <label>Username:</label>
+            <input type="text" th:field="*{username}" class="input" required/>
+        </div>
+        <div class="place">
+            <label>Password:</label>
+            <input type="password" th:field="*{password}" class="input" required/>
+        </div>
+        <div>
+            <button type="submit" class="button">Register</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

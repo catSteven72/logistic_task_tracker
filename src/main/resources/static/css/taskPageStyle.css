@@ -1,97 +1,168 @@
+.booking {
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    padding: 10px;
+}
+
 .booking-container {
-            margin-bottom: 20px;
-        }
+    margin-bottom: 20px;
+}
 
-        .booking {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #f2f2f2;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+.booking-content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
-        .places {
-            display: grid;
-            padding: 10px;
-            margin-top: 10px;
-        }
+.booking-info {
+    flex-grow: 1;
+}
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-        }
+.bottom-half {
+    flex: 1;
+    width: 100%;
+}
 
-        .place-column {
-            background-color: white;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+.common-header {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+}
 
-        .top-half {
-            display: flex;
-            flex: 1 1 20%;
-        }
+.grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
 
-        .left-side, .right-side {
-            background-color: white;
-            flex: 1;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
+.home-link {
+    background-color: #7CB9E8;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
 
-        .left-side.active,
-        .right-side.active {
-            background-color: green;
-        }
+.home-link:hover {
+    background-color: #72A0C1;
+}
 
-        .bottom-half {
-            flex: 4 1 80%;
-            width: 100%;
-        }
+.left-side, .right-side {
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
 
-        .subtask-list {
-            width: 100%;
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
+.left-side.active,
+.right-side.active {
+    background-color: green;
+}
 
-        .subtask-list li {
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
+.place-column {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+}
 
-        .subtask-list li:last-child {
-            border-bottom: none;
-        }
+.places {
+    display: grid;
+    margin-top: 10px;
+    padding: 10px;
+}
 
-        .subtask-item {
-            padding: 5px 10px;
-            border-bottom: 1px solid #eee;
-        }
+.standard-button {
+    background-color: #7CB9E8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+}
 
-        .subtask-item:last-child {
-            border-bottom: none;
-        }
+.subtask-details {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 2px 0;
+    padding: 5px;
+}
 
-        .subtask-details {
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 5px;
-            padding: 5px;
-            margin: 2px 0;
-        }
+.subtask-details.active {
+    background-color: green;
+}
 
-        .subtask-details.active {
-            background-color: green;
-        }
+.subtask-item {
+    border-bottom: 1px solid #eee;
+    padding: 5px 10px;
+}
+
+.subtask-item:last-child {
+    border-bottom: none;
+}
+
+.subtask-list {
+    border-radius: 8px;
+    list-style: none;
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+}
+
+.subtask-list li {
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}
+
+.subtask-list li:last-child {
+    border-bottom: none;
+}
+
+.toggle-description {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+}
+
+.toggle-description:hover {
+    background-color: #367c39;
+}
+
+.top-half {
+    display: flex;
+    height: 40px;
+}
+
+.update-link {
+    background-color: #72A0C1;
+    margin-left: 20px;
+}
