@@ -117,9 +117,7 @@ public class BookingService {
         }
 
         subtask.setName(subtaskDTO.getName());
-        System.out.println(subtaskDTO.getDescription());
         subtask.setDescription(subtaskDTO.getDescription());
-        System.out.println(subtask.getDescription());
         subtask.setPlace(place);
 
         return subtask;
